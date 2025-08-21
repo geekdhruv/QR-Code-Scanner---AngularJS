@@ -154,31 +154,4 @@ The application follows Angular best practices with:
 2. **Steady Position**: Hold the QR code steady within the frame
 3. **Clear QR Code**: Make sure the QR code is not damaged or blurry
 
-### Performance Issues
 
-1. **Close Other Apps**: Close other camera-using applications
-2. **Browser Refresh**: Try refreshing the page
-3. **Clear Cache**: Clear browser cache and cookies
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## License
-
-This project is open source and available under the MIT License.
-
-## Support
-
-For issues and questions:
-1. Check the troubleshooting section
-2. Review browser console for errors
-3. Ensure all dependencies are properly installed
-
----
-
-**Enjoy scanning QR codes with this modern, professional application!**
