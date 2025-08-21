@@ -1,0 +1,62 @@
+<div class="scanner-wrapper">
+  <!-- Permission Request -->
+  <div *ngIf="permissionError" class="permission-request mb-6">
+    <i class="fas fa-camera"></i>
+    <h3 class="text-lg font-semibold mb-2">Camera Permission Required</h3>
+    <p class="mb-4">This app needs access to your camera to scan QR codes.</p>
+    <button class="btn btn-primary" (click)="requestPermission()">
+      <i class="fas fa-key"></i> Grant Permission
+    </button>
+  </div>
+
+  <!-- No Devices Available -->
+  <div *ngIf="!hasDevices && hasPermission" class="text-center p-8">
+    <div class="spinner mb-4"></div>
+    <p class="text-gray-600">Looking for available cameras...</p>
+  </div>
+
+  <!-- Camera Selection -->
+  <div *ngIf="hasDevices && availableDevices.length > 1" class="mb-4">
+    <label for="camera-select" class="block text-sm font-medium text-gray-700 mb-2">
+      Select Camera:
+    </label>
+         <select 
+       id="camera-select"
+       class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+               (change)="onDeviceSelectChange($event)">
+      <option 
+        *ngFor="let device of availableDevices" 
+        [value]="device.deviceId"
+        [selected]="selectedDevice?.deviceId === device.deviceId">
+        {{ device.label || 'Camera ' + (availableDevices.indexOf(device) + 1) }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Scanner Component -->
+  <div *ngIf="hasDevices && hasPermission" class="scanner-container">
+    <zxing-scanner
+      [enable]="isScanning"
+      [device]="selectedDevice"
+      (camerasFound)="onCamerasFound($event)"
+             (scanSuccess)="onScanSuccess($event as any)"
+      (scanError)="onScanError($event)"
+      (scanFailure)="onScanFailure($event)">
+    </zxing-scanner>
+    
+    <!-- Scanner Overlay -->
+    <div class="scanner-overlay">
+      <div class="scanner-frame">
+        <div class="scanning-indicator">
+          <div class="scan-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="!hasDevices && !permissionError" class="text-center p-8">
+    <div class="spinner mb-4"></div>
+    <p class="text-gray-600">Initializing scanner...</p>
+  </div>
+</div>
